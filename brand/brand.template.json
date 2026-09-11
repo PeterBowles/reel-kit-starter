@@ -1,0 +1,36 @@
+{
+  "_readme": "Copy to brand/brand.json and fill in. Hex colors are #RRGGBB. See brand/README.md.",
+  "name": "My Company",
+  "palette": {
+    "primary":    "#3366FF",
+    "accent":     "#FFD166",
+    "background": "#111111",
+    "text":       "#FFFFFF"
+  },
+  "font": {
+    "display_ttf": "fonts/Montserrat-Black.ttf",
+    "body_ttf":    "fonts/Montserrat-Bold.ttf"
+  },
+  "logo": null,
+  "captions": {
+    "preset": "pill",
+    "case": "sentence",
+    "font_size": 104,
+    "pos_y": 1530,
+    "max_words_per_line": 4,
+    "highlight_color": "#3366FF",
+    "text_color": "#FFFFFF"
+  },
+  "hook_card": {
+    "panel_color": "#111111",
+    "panel_alpha": 230,
+    "accent_color": "#FFD166",
+    "text_color": "#FFFFFF",
+    "case": "sentence"
+  },
+  "reframe": { "mode": "face-fixed", "crop_w": 608, "fallback_x": 656 },
+  "grade":   { "filter": "" },
+  "output":  { "width": 1080, "height": 1920, "fps": 30, "crf": 18,
+               "audio_bitrate": "192k", "sample_rate": 48000,
+               "loudness_I": -14, "loudness_TP": -1, "loudness_LRA": 11 }
+}

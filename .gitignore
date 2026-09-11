@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.env
+node_modules/
+videos/*/raw/
+videos/*/work/
+videos/*/export/
+videos/_inbox/*
+!videos/_inbox/.gitkeep
+brand/brand.json
+brand/logo.*
