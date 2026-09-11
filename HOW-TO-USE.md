@@ -2,11 +2,15 @@
 
 ## Daily use
 
-1. Drop your clip (or clips) into `videos/_inbox/`, any filename.
-2. Open this folder in Claude Desktop's Code tab.
-3. Say: `make a reel from the clip in inbox, call it <slug>` (pick any short name
-   for `<slug>`, for example `morning-routine`).
-4. Claude runs `scripts/new_video.py`, transcribes your footage, proposes a cut, and
+1. Open this folder in Claude Desktop's Code tab.
+2. Get your footage in, either way works:
+   - **Clip first:** drop it into `videos/_inbox/` (any filename), then say
+     `make a reel from the clip in inbox, call it morning-routine`.
+   - **Folder first:** say `start a new video`. Claude asks what to call it, creates
+     `videos/<date>-<name>/`, and tells you to drop your footage into its `raw/`
+     folder. Put the files there, then say `footage is in, make the reel`.
+3. Every video gets its own dated folder this way. Claude never writes anywhere else.
+4. Claude transcribes your footage, proposes a cut, and
    builds it. It shows you the cut plus a contact sheet before adding captions, say
    "yes" or ask for changes.
 5. Once you approve, Claude adds captions in your brand style and exports the final

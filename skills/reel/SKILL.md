@@ -1,6 +1,6 @@
 ---
 name: reel
-description: Use when the user says "make a reel", "edit this clip", "cut my footage", or drops footage in videos/_inbox.
+description: Use when the user says "make a reel", "start a new video", "edit this clip", "cut my footage", or drops footage in videos/_inbox.
 ---
 
 # reel
@@ -24,11 +24,18 @@ Turn raw footage into a captioned, brand-styled vertical reel.
 
 ## Pipeline
 
-1. **Inventory.** `ffprobe` each file that's already in `raw/`, or, if the user hasn't
-   named this video yet, ask for a 2 to 4 word slug and run
-   `python scripts/new_video.py <slug>` from the repo root. That moves everything out
-   of `videos/_inbox` into `videos/<date>-<slug>/raw/` and creates `work/`, `export/`,
-   and `notes.md`.
+1. **Start the project.** Two ways in, both end in the same folder:
+   - **Footage first.** Files are already in `videos/_inbox/` and the user says
+     "make a reel". If they didn't name it, ask for a 2 to 4 word name, then run
+     `python scripts/new_video.py <slug>` from the repo root. That moves everything
+     out of `_inbox` into `videos/<date>-<slug>/raw/` and creates `work/`, `export/`,
+     `notes.md`.
+   - **Folder first.** The user says "start a new video" or "new project" with nothing
+     in `_inbox`. Ask what to call it, run the same `new_video.py <slug>` (it creates
+     the empty project), then tell them the exact path to drop footage into:
+     `videos/<date>-<slug>/raw/`. Stop there and wait until they say the footage is in.
+   Then `ffprobe` each file in `raw/`. If `raw/` is empty, say so and wait; never
+   go looking for footage elsewhere.
 2. **Transcribe each source** with the video-use toolkit (cloned separately, see
    `CLAUDE.md` for where `<VIDEO_USE>` points on this machine):
    ```
