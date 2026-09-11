@@ -8,5 +8,7 @@ videos/*/work/
 videos/*/export/
 videos/_inbox/*
 !videos/_inbox/.gitkeep
-brand/brand.json
-brand/logo.*
+# Everything you put in brand/ is yours and stays local. Only the template and README are tracked.
+brand/*
+!brand/brand.template.json
+!brand/README.md

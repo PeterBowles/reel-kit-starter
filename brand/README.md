@@ -5,6 +5,10 @@ cards, reframe, build) reads it. Copy `brand.template.json` to `brand.json`
 and fill in your own values, `brand.json` is gitignored so your colors and
 logo never get committed.
 
+## Have a brand guide already?
+
+Drop it in this folder: a logo (PNG or SVG), a brand-guide PDF, a screenshot of your website, an HTML page, anything. Then tell Claude "use the files in brand/ to set up my brand" (or give it your website URL). It reads them, pulls out the colours, font and logo, shows you what it found, and writes `brand.json` for you. You only get asked about things it could not find.
+
 ## Fields
 
 - **name**, your company or creator name. Used in card/thumbnail text where
