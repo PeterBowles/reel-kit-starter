@@ -10,26 +10,52 @@ skip the app-review process entirely.
 See blotato.com/pricing for current plans, don't assume a number here, they change
 their pricing over time.
 
-## Setup
+## Setup (about 10 minutes, verified against Blotato's help docs, Sept 2026)
 
-1. Create a Blotato account.
-2. In their dashboard, connect the social accounts you want to post to (Instagram,
-   TikTok, YouTube, Facebook, LinkedIn). This step happens in their UI, not here.
-3. Generate an API key from your Blotato account settings.
-4. Add the Blotato MCP server to Claude Desktop following Blotato's own connection
-   docs (search "Blotato MCP" or check their developer docs page, the exact steps
-   change as they update their integration).
+Blotato's API and MCP need a paid Blotato plan. Check blotato.com/pricing.
+
+1. Create a Blotato account at blotato.com.
+2. In Blotato's own website (my.blotato.com, Settings), connect every social account
+   you want to post to: Instagram, TikTok, YouTube, Facebook, LinkedIn. Claude
+   cannot do this step for you, it involves logging in to each platform.
+3. Connect Blotato to Claude. Blotato runs a hosted MCP server at
+   `https://mcp.blotato.com/mcp`, nothing to install:
+   - **Claude Desktop:** Settings → Connectors → Add custom connector → name it
+     `Blotato`, URL `https://mcp.blotato.com/mcp` → Connect → approve the login
+     in your browser (be logged in to Blotato there first).
+   - **Claude Code (terminal):** in Blotato, Settings → API → "Claude Code" has a
+     "Copy Setup Command" button. It gives you a one-liner of the form
+     `claude mcp add blotato --url https://mcp.blotato.com/mcp --header "blotato-api-key: YOUR_KEY"`.
+     Run it inside a Claude Code session. Keep any trailing `=` characters in the
+     key, dropping them causes a silent 401.
+   Official steps: help.blotato.com/api/mcp/setup and help.blotato.com/api/claude-code
+4. Test it: ask Claude `list my Blotato accounts`. You should see the accounts you
+   connected in step 2. If the connector says "Connected" but tool calls fail with an
+   auth error, redo step 3 using the API-key form instead of the browser login
+   (help.blotato.com/api/mcp/faqs).
+
+Optional: Blotato publishes free Claude Code skills for writing and scheduling posts
+(`/plugin marketplace add Blotato-Inc/blotato-skills`). Not needed for this kit,
+the posting flow below is enough, but their `post-writer` and `post-grader` are
+decent if you want help with caption copy.
 
 ## The posting flow
 
-Once the MCP server is connected, posting a finished video looks like this:
+Once Blotato is connected, posting a finished video looks like this (tool names as
+Blotato exposes them):
 
-1. Create a presigned upload URL through the Blotato MCP tool for creating an
-   upload URL.
-2. Upload your local `export/FINAL.mp4` to that presigned URL directly (a plain PUT
-   request works, no intermediate cloud storage needed).
-3. Create a post per platform using the returned media URL, with that platform's
-   own caption text and (if scheduling ahead) its own `scheduledTime`.
+1. `blotato_list_accounts` to get the account id for each platform.
+2. `blotato_create_presigned_upload_url` for `FINAL.mp4` (and `COVER.jpg` if you
+   want an Instagram cover).
+3. Upload each local file to its presigned URL with a plain HTTP PUT (Claude does
+   this with curl; no cloud-storage detour needed).
+4. `blotato_create_post` once per platform, using the returned media URL, that
+   platform's own caption text from `export/captions.md`, and (if scheduling ahead)
+   a `scheduledTime` in UTC.
+5. `blotato_get_post_status` to confirm each one went through.
+
+Nothing gets posted until you say so. Claude should show you the exact caption,
+platforms, and time, and wait for a yes.
 
 Never post an account ID or API key into a document, a commit, or a chat log.
 
