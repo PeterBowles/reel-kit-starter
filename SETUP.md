@@ -28,7 +28,7 @@ Install whatever's missing:
 ## 2. Clone the repos
 
 ```bash
-git clone https://github.com/<OWNER>/reel-kit-starter .
+git clone https://github.com/PeterBowles/reel-kit-starter .
 ```
 
 (run this inside an empty folder). Then clone the video engine this toolkit depends
